@@ -3,19 +3,19 @@
     <v-card class="chat-box" flat>
       <v-list>
         <v-list-item v-for="(message, index) in messages" :key="index">
-          <div class="flex align-center">
-            <v-avatar image="user_avartar.jpeg"></v-avatar>
-            <v-list-item-content>
-              <!-- <v-list-item-title>{{ message.user }}</v-list-item-title> -->
-            </v-list-item-content>
-          </div>
-          <v-list-item-content>
-            <v-list-item-title>{{ message.text }}</v-list-item-title>
-          </v-list-item-content>
+          <!-- 아이콘 + 텍스트 부분 -->
+          <v-card
+            prepend-icon="mdi-human-greeting"
+            title="USER"
+            elevation="4"
+          >
+            <v-card-text>{{ message.text }}</v-card-text>
+          </v-card>
         </v-list-item>
       </v-list>
       <v-divider></v-divider>
       <v-card-actions>
+        <!-- 텍스트 필드 부분 -->
         <v-text-field
           v-model="newMessage"
           label="write an answer."
@@ -40,7 +40,7 @@ export default {
     return {
       messages: [],
       newMessage: "",
-      currentUser: "user", // 사용자 이름을 정의합니다.
+      currentUser: "USER", // 사용자 이름을 정의합니다.
     };
   },
   methods: {
@@ -62,5 +62,4 @@ export default {
 .align-center {
   align-items: center;
 }
-
 </style>
