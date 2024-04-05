@@ -16,3 +16,9 @@ export default {
   }),
 }
 </script>
+
+<style scoped>
+    * {
+      font-family: 'Do Hyeon';
+    }
+</style>
