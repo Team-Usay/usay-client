@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <!-- 좌측 네비게이션 바 부분 -->
-    <v-navigation-drawer class="bg-blue-grey-lighten-4 rounded-e-lg border-0">
+    <v-navigation-drawer class="bg-blue-grey-lighten-3 rounded-e-lg border-0">
       <!-- <v-list-item link class="bg-blue-grey-lighten-3">new Chat</v-list-item> -->
       <v-list-item v-for="(roomName, index) in roomNames" :key="index">
-        <v-list-item link class="border-b-sm">{{ roomName.value }}</v-list-item>
+        <v-list-item link class="border-b-sm" style="color:white; text-shadow: 1px 1px 1px #263238;">{{ roomName.value }}</v-list-item>
       </v-list-item>
     </v-navigation-drawer>
 
@@ -68,7 +68,7 @@ export default {
         this.messages.push({ isUser: true, text: this.newMessage });
         this.messages.push({ isUser: false, text: this.newMessage });
         this.newMessage = ""; // 메시지 전송 후 입력 필드를 비웁니다.
-        this.roomNames.push({ value: "hello" });
+        this.roomNames.push({ value: "스프링 부트 면접" });
       }
     },
   },
