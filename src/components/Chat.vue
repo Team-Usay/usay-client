@@ -1,11 +1,10 @@
 <template>
   <v-container>
     <!-- 좌측 네비게이션 바 부분 -->
-    <v-navigation-drawer>
-      <v-list-item title="Records"></v-list-item>
-      <v-divider></v-divider>
+    <v-navigation-drawer class="bg-blue-grey-lighten-4 rounded-e-lg border-0">
+      <!-- <v-list-item link class="bg-blue-grey-lighten-3">new Chat</v-list-item> -->
       <v-list-item v-for="(roomName, index) in roomNames" :key="index">
-        <v-list-item>{{ roomName.value }}</v-list-item>
+        <v-list-item link class="border-b-sm">{{ roomName.value }}</v-list-item>
       </v-list-item>
     </v-navigation-drawer>
 
