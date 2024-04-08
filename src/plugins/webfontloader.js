@@ -9,7 +9,7 @@ export async function loadFonts () {
 
   webFontLoader.load({
     google: {
-      families: ['Do Hyeon:400'],
+      families: ['Gothic A1:600'],
     },
   })
 }
