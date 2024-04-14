@@ -20,8 +20,9 @@
         :loading="loading"
         class="flex-grow-1"
         height="48"
-        variant="text"
+        rounded
         @click="load"
+        variant="tonal"
         prepend-icon="mdi-account-arrow-right-outline"
       >
         <template v-slot:prepend>
@@ -55,7 +56,7 @@
             <!-- 두 번째 열: 버튼 -->
             <v-col cols="3">
               <v-card-actions>
-                <v-btn>
+                <v-btn variant="tonal" rounded>
                   <router-link
                     to="/chat"
                     class="text-black"
