@@ -3,14 +3,18 @@
     <v-row>
       <v-col cols="1">
         <!-- 네비게이션 바 Open - Close 버튼 -->
-        <v-btn icon flat @click="drawer = !drawer" class="d-lg-none">
+        <v-btn
+          icon
+          flat
+          @click="isNavigationVisible = !isNavigationVisible"
+          class="d-lg-none"
+        >
           <v-icon>mdi-menu</v-icon>
         </v-btn>
 
         <!-- 좌측 네비게이션 바 부분 -->
         <v-navigation-drawer
           class="bg-blue-grey-lighten-4 rounded-e-lg border-0"
-          v-model="drawer"
         >
           <!-- <v-list-item link class="bg-blue-grey-lighten-4">new Chat</v-list-item> -->
           <v-list-item v-for="(roomName, index) in roomNames" :key="index">
@@ -27,26 +31,42 @@
       <v-col>
         <v-card flat>
           <v-list>
-            <v-list-item v-for="(message, index) in messages" :key="index">
-              <!-- 사용자 아이콘 + 텍스트 부분 -->
+            <template v-if="messages.length !== 0">
+              <v-list-item v-for="(message, index) in messages" :key="index">
+                <!-- 사용자 아이콘 + 텍스트 부분 -->
 
-              <v-card
-                v-if="message.isUser"
-                prepend-icon="mdi-account"
-                elevation="4"
-              >
-                <v-card-text max-width="100">{{ message.text }}</v-card-text>
-              </v-card>
+                <v-card
+                  v-if="message.isUser"
+                  prepend-icon="mdi-account"
+                  elevation="4"
+                >
+                  <v-card-text max-width="100">{{ message.text }}</v-card-text>
+                </v-card>
 
-              <!-- AI 아이콘 + 텍스트 부분 -->
-              <v-card
-                v-if="!message.isUser"
-                prepend-icon="mdi-robot-happy-outline"
-                elevation="4"
-              >
-                <v-card-text class="typewriter">{{ message.text }}</v-card-text>
-              </v-card>
-            </v-list-item>
+                <!-- AI 아이콘 + 텍스트 부분 -->
+                <v-card
+                  v-if="!message.isUser"
+                  prepend-icon="mdi-robot-happy-outline"
+                  elevation="4"
+                >
+                  <v-card-text class="typewriter">{{
+                    message.text
+                  }}</v-card-text>
+                </v-card>
+              </v-list-item>
+            </template>
+
+            <!-- 아무 메세지도 없을 시, Welcome 출력 -->
+            <template v-else>
+              <v-list-item style="height: 100%">
+                <v-card flat style="height: 100%">
+                  <v-card-text
+                    class="fill-height d-flex align-center justify-center"
+                    >Start a conversation...</v-card-text
+                  >
+                </v-card>
+              </v-list-item>
+            </template>
           </v-list>
           <v-divider></v-divider>
           <v-card-actions>
@@ -81,7 +101,7 @@ export default {
       messages: [],
       roomNames: [],
       writingMessage: "",
-      drawer: true,
+      isNavigationVisible: true,
     };
   },
 
