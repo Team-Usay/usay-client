@@ -46,28 +46,30 @@
       </div>
 
       <v-list-item v-for="(record, index) in records" :key="index">
-        <v-card class="mx-auto">
-          <v-row no-gutters>
-            <!-- 첫 번째 열: 제목과 날짜 -->
-            <v-col cols="9">
-              <v-card-title>{{ record.title }}</v-card-title>
-              <v-card-subtitle>{{ record.date }}</v-card-subtitle>
-            </v-col>
-            <!-- 두 번째 열: 버튼 -->
-            <v-col cols="3">
-              <v-card-actions>
-                <v-btn variant="tonal" rounded>
-                  <router-link
-                    to="/chat"
-                    class="text-black"
-                    style="text-decoration: none"
-                    >move</router-link
-                  >
-                </v-btn>
-              </v-card-actions>
-            </v-col>
-          </v-row>
-        </v-card>
+        <v-row>
+          <!-- 첫 번째 열: 제목과 날짜 -->
+          <v-col cols="8">
+            <p>
+              <b> {{ record.title }} </b>
+            </p>
+            <p>{{ record.date }}</p>
+          </v-col>
+          <!-- 두 번째 열: 버튼 -->
+          <v-col cols="4">
+            <v-btn
+              variant="tonal"
+              rounded
+              append-icon="mdi-arrow-right"
+            >
+              <router-link
+                to="/chat"
+                class="text-black"
+                style="text-decoration: none"
+                >move</router-link
+              >
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-list-item>
     </div>
   </v-sheet>
