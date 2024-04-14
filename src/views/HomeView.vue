@@ -2,6 +2,7 @@
   <v-sheet
     class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4"
     height="80%"
+    max-height="60%"
     width="100%"
   >
     <div>
@@ -14,7 +15,6 @@
       <p class="text-body-2 mb-4">
         Click the button below to start your interview.
       </p>
-      <!-- 여기에 채팅 목록 보여주기 -->
 
       <v-btn
         :loading="loading"
@@ -28,10 +28,46 @@
           <v-icon color="orange"></v-icon>
         </template>
 
-        <router-link to="/chat" class="text-black" style="text-decoration: none;"
+        <router-link to="/chat" class="text-black" style="text-decoration: none"
           ><b>Start an Interview</b></router-link
         >
       </v-btn>
+    </div>
+  </v-sheet>
+
+  <v-sheet
+    class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4"
+    width="100%"
+  >
+    <div>
+      <div class="text-h7 font-weight-medium mb-2">
+        Previous interview records can be found below.
+      </div>
+
+      <v-list-item v-for="(record, index) in records" :key="index">
+        <v-card class="mx-auto">
+          <v-row no-gutters>
+            <!-- 첫 번째 열: 제목과 날짜 -->
+            <v-col cols="9">
+              <v-card-title>{{ record.title }}</v-card-title>
+              <v-card-subtitle>{{ record.date }}</v-card-subtitle>
+            </v-col>
+            <!-- 두 번째 열: 버튼 -->
+            <v-col cols="3">
+              <v-card-actions>
+                <v-btn>
+                  <router-link
+                    to="/chat"
+                    class="text-black"
+                    style="text-decoration: none"
+                    >move</router-link
+                  >
+                </v-btn>
+              </v-card-actions>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-list-item>
     </div>
   </v-sheet>
 </template>
@@ -39,5 +75,20 @@
 <script>
 export default {
   name: "HomeView",
+
+  data() {
+    return {
+      records: [
+        {
+          title: "LLM Interview",
+          date: "2024-01-01",
+        },
+        {
+          title: "Spring Boot Interview",
+          date: "2024-01-02",
+        },
+      ],
+    };
+  },
 };
 </script>
