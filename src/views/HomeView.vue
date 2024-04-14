@@ -21,17 +21,14 @@
         class="flex-grow-1"
         height="48"
         rounded
-        @click="load"
+        @click="$router.push('/chat')"
         variant="tonal"
         prepend-icon="mdi-account-arrow-right-outline"
       >
         <template v-slot:prepend>
           <v-icon color="orange"></v-icon>
         </template>
-
-        <router-link to="/chat" class="text-black" style="text-decoration: none"
-          ><b>Start an Interview</b></router-link
-        >
+        Start an interview
       </v-btn>
     </div>
   </v-sheet>
@@ -60,13 +57,9 @@
               variant="tonal"
               rounded
               append-icon="mdi-arrow-right"
+              @click="$router.push('/chat')"
             >
-              <router-link
-                to="/chat"
-                class="text-black"
-                style="text-decoration: none"
-                >move</router-link
-              >
+              move
             </v-btn>
           </v-col>
         </v-row>
