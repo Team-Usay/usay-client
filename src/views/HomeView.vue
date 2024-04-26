@@ -46,21 +46,16 @@
         <v-row>
           <!-- 첫 번째 열: 제목과 날짜 -->
           <v-col cols="8">
-            <p>
-              <b> {{ record.title }} </b>
-            </p>
-            <p>{{ record.date }}</p>
+            <div class="pa-4 text-center">
+              <p>
+                <b> {{ record.title }} </b>
+              </p>
+              <p>{{ record.date }}</p>
+            </div>
           </v-col>
           <!-- 두 번째 열: 버튼 -->
           <v-col cols="4">
-            <v-btn
-              variant="tonal"
-              rounded
-              append-icon="mdi-arrow-right"
-              @click="$router.push('/chat')"
-            >
-              move
-            </v-btn>
+            <Record></Record>
           </v-col>
         </v-row>
       </v-list-item>
@@ -69,6 +64,8 @@
 </template>
 
 <script>
+import Record from "../components/Record.vue";
+
 export default {
   name: "HomeView",
 
@@ -85,6 +82,10 @@ export default {
         },
       ],
     };
+  },
+
+  components: {
+    Record,
   },
 };
 </script>
