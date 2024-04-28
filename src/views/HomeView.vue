@@ -2,6 +2,7 @@
   <v-sheet
     class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4"
     height="80%"
+    max-height="60%"
     width="100%"
   >
     <div>
@@ -14,30 +15,77 @@
       <p class="text-body-2 mb-4">
         Click the button below to start your interview.
       </p>
-      <!-- 여기에 채팅 목록 보여주기 -->
 
       <v-btn
         :loading="loading"
         class="flex-grow-1"
         height="48"
-        variant="text"
-        @click="load"
+        rounded
+        @click="$router.push('/chat')"
+        variant="tonal"
         prepend-icon="mdi-account-arrow-right-outline"
       >
         <template v-slot:prepend>
           <v-icon color="orange"></v-icon>
         </template>
-
-        <router-link to="/chat" class="text-black" style="text-decoration: none;"
-          ><b>Start an Interview</b></router-link
-        >
+        Start an interview
       </v-btn>
+    </div>
+  </v-sheet>
+
+  <v-sheet
+    class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4"
+    width="100%"
+  >
+    <div>
+      <div class="text-h7 font-weight-medium mb-2">
+        Previous interview records can be found below.
+      </div>
+
+      <v-list-item v-for="(record, index) in records" :key="index">
+        <v-row>
+          <!-- 첫 번째 열: 제목과 날짜 -->
+          <v-col cols="8">
+            <div class="pa-4 text-center">
+              <p>
+                <b> {{ record.title }} </b>
+              </p>
+              <p>{{ record.date }}</p>
+            </div>
+          </v-col>
+          <!-- 두 번째 열: 버튼 -->
+          <v-col cols="4">
+            <Record></Record>
+          </v-col>
+        </v-row>
+      </v-list-item>
     </div>
   </v-sheet>
 </template>
 
 <script>
+import Record from "../components/Record.vue";
+
 export default {
   name: "HomeView",
+
+  data() {
+    return {
+      records: [
+        {
+          title: "LLM Interview",
+          date: "2024-01-01",
+        },
+        {
+          title: "Spring Boot Interview",
+          date: "2024-01-02",
+        },
+      ],
+    };
+  },
+
+  components: {
+    Record,
+  },
 };
 </script>
