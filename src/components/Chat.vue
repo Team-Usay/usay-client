@@ -1,34 +1,56 @@
 <template>
   <v-container>
-    <div style="height: 90vh;"> <!-- Conversation 부분의 부모 요소 -->
-      <Conversation :messages="messages" style="height: 100%;"></Conversation>
+    <div style="height: 85vh">
+      <div ref="messageList" style="overflow-y: auto; max-height: 100%">
+        <v-list>
+          <template v-if="messages.length !== 0">
+            <v-list-item v-for="(message, index) in messages" :key="index">
+              <!-- 사용자 아이콘 + 텍스트 부분 -->
+              <v-card
+                v-if="message.isUser"
+                prepend-icon="mdi-account"
+                elevation="4"
+              >
+                <v-card-text max-width="100">{{ message.text }}</v-card-text>
+              </v-card>
+
+              <!-- AI 아이콘 + 텍스트 부분 -->
+              <v-card
+                v-if="!message.isUser"
+                prepend-icon="mdi-robot-happy-outline"
+                elevation="4"
+              >
+                <v-card-text class="typewriter">{{ message.text }}</v-card-text>
+              </v-card>
+            </v-list-item>
+          </template>
+        </v-list>
+      </div>
     </div>
     <v-divider></v-divider>
 
-    <div style="height: 10vh;"> <!-- Conversation 부분의 부모 요소 -->
-    <v-card-actions>
-      <!-- 텍스트 필드 부분 -->
-      <v-text-field
-        v-model="writingMessage"
-        label="write an answer."
-        flat
-        rounded
-        variant="solo-filled"
-        @keyup.enter="sendMessage"
-      >
-        <template #append>
-          <v-btn color="orange" @click="sendMessage"> Send </v-btn>
-        </template>
-      </v-text-field>
-    </v-card-actions>
+    <div>
+      <v-card-actions>
+        <!-- 텍스트 필드 부분 -->
+        <v-text-field
+          v-model="writingMessage"
+          label="write an answer."
+          flat
+          rounded
+          variant="solo-filled"
+          @keyup.enter="sendMessage"
+        >
+          <template #append>
+            <v-btn color="orange" @click="sendMessage"> Send </v-btn>
+          </template>
+        </v-text-field>
+      </v-card-actions>
     </div>
   </v-container>
 </template>
 
 <script>
 // import axios from "axios";
-
-import Conversation from "./Conversation.vue";
 
 export default {
   name: "Chat",
@@ -41,6 +63,16 @@ export default {
   },
 
   methods: {
+    scrollMessageListToBottom() {
+      // $refs를 사용하여 messageList 요소에 접근
+      const messageList = this.$refs.messageList;
+
+      this.$nextTick(() => {
+        // 스크롤을 아래로 내리기
+        messageList.scrollTop = messageList.scrollHeight;
+      });
+    },
+
     sendMessage() {
       if (this.writingMessage.trim() !== "") {
         this.messages.push({ isUser: true, text: this.writingMessage });
@@ -67,19 +99,8 @@ export default {
         //   });
         this.writingMessage = "";
       }
+      this.scrollMessageListToBottom();
     },
-  },
-
-  components: {
-    Conversation,
   },
 };
 </script>
-
-<style scoped>
-.card-actions {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-</style>
