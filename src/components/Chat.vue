@@ -1,6 +1,12 @@
 <template>
   <v-container>
     <div style="height: 85vh">
+      <!-- 뒤로가기 버튼 -->
+      <v-btn variant="text" color="orange" @click="$router.go(-1)">
+        <v-icon left>mdi-arrow-left</v-icon>
+        Back
+      </v-btn>
+
       <div ref="messageList" style="overflow-y: auto; max-height: 100%">
         <v-list>
           <template v-if="messages.length !== 0">
