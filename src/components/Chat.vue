@@ -56,7 +56,8 @@
 </template>
 
 <script>
-// import axios from "axios";
+
+import axios from "axios";
 
 export default {
   name: "Chat",
@@ -66,6 +67,20 @@ export default {
       messages: [],
       writingMessage: "",
     };
+  },
+
+  created() { // 처음 입장 시 질문 조회
+    console.log("created")
+    axios
+          .get(process.env.VUE_APP_API_SERVER + "/api/v1/chats/init")
+
+          .then(function (response) {
+            const answer = response.data.data.answer;
+            this.messages.push({ isUser: false, text: answer });
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
   },
 
   methods: {
@@ -82,27 +97,24 @@ export default {
     sendMessage() {
       if (this.writingMessage.trim() !== "") {
         this.messages.push({ isUser: true, text: this.writingMessage });
-
-        // axios
-        //   .post(
-        //     process.env.VUE_APP_API_SERVER,
-        //     {
-        //       prompt: this.writingMessage,
-        //     },
-        //     {
-        //       "Content-Type": "application/json",
-        //     }
-        //   )
-        //   .then(function (response) {
-        //     const data = response.data.data;
-        //     const modelIndex = data.indexOf("model");
-        //     const modelAnswer = data.slice(modelIndex + "model".length);
-
-        //     this.messages.push({ isUser: false, text: modelAnswer });
-        //   })
-        //   .catch(function (error) {
-        //     console.error(error);
-        //   });
+        axios
+          .post(
+            process.env.VUE_APP_API_SERVER + "/api/v1/chats/ask",
+            {
+              answer: this.writingMessage,
+            },
+            {
+              "Content-Type": "application/json",
+            }
+          )
+          .then(function (response) {
+            const answer = response.data.data.answer;
+            this.messages.push({ isUser: false, text: answer });
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+          
         this.writingMessage = "";
       }
       this.scrollMessageListToBottom();
